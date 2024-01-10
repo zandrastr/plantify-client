@@ -2,12 +2,13 @@ import axios from 'axios';
 import { IPlantModel } from '../models/plant.model';
 
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
+const UNSPLASH_BASE_URL = import.meta.env.VITE_UNSPLASH_BASE_URL;
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_BASE_URL = import.meta.env.VITE_OPENAI_BASE_URL;
 
 //******************** Get plant image ********************
 export const getPlantImage = async (plantName:string):Promise<string> => {
-    const { data } = await axios.get(`https://api.unsplash.com/search/photos?query=${plantName}+plant&per_page=1&client_id=${UNSPLASH_API_KEY}`);
+    const { data } = await axios.get(`${UNSPLASH_BASE_URL}/search/photos?query=${plantName}+plant&per_page=1&client_id=${UNSPLASH_API_KEY}`);
     const result = data.results[0].urls.regular;
     return result;
 };
