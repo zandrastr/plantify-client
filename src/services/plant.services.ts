@@ -3,6 +3,7 @@ import { IPlantModel } from '../models/plant.model';
 
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+const OPENAI_BASE_URL = import.meta.env.VITE_OPENAI_BASE_URL;
 
 //******************** Get plant image ********************
 export const getPlantImage = async (plantName:string):Promise<string> => {
@@ -36,7 +37,7 @@ export const getPlantInfo = async (plantName:string):Promise<IPlantModel> => {
         'max_tokens': 200,
     };
 
-    const { data } = await axios.post('https://api.openai.com/v1/chat/completions', queryData, options);
+    const { data } = await axios.post(`${OPENAI_BASE_URL}/chat/completions`, queryData, options);
     const result = JSON.parse(data.choices[0].message.content);
     return result;
 };
