@@ -5,6 +5,13 @@ const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const UNSPLASH_BASE_URL = import.meta.env.VITE_UNSPLASH_BASE_URL;
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const OPENAI_BASE_URL = import.meta.env.VITE_OPENAI_BASE_URL;
+const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
+
+//******************** Get one plant from DB ********************
+export const getPlant = async (latinName :string):Promise<IPlantModel> => {
+    const { data } = await axios.get(`${SERVER_API_URL}/plants/${latinName}`);
+    return data;
+};
 
 //******************** Get plant image ********************
 export const getPlantImage = async (plantName:string):Promise<string> => {
@@ -13,7 +20,7 @@ export const getPlantImage = async (plantName:string):Promise<string> => {
     return result;
 };
 
-//***************** Get plant information ****************
+//***************** Get plant information from ChatGPT ****************
 export const getPlantInfo = async (plantName:string):Promise<IPlantModel> => {
 
     const options = {
@@ -41,4 +48,21 @@ export const getPlantInfo = async (plantName:string):Promise<IPlantModel> => {
     const { data } = await axios.post(`${OPENAI_BASE_URL}/chat/completions`, queryData, options);
     const result = JSON.parse(data.choices[0].message.content);
     return result;
+};
+
+//***************** Save plant in DB ****************
+export const savePlant = async (userId:string, plant:IPlantModel):Promise<{message: string, createdPlant: IPlantModel}> => {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+
+    const requestBody = {
+       _id: userId,  
+        ...plant,
+    };
+
+    const { data } = await axios.post(`${SERVER_API_URL}/plants/save`, requestBody, options);
+    return data;
 };

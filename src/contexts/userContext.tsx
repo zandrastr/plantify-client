@@ -9,6 +9,7 @@ export interface IUserContext {
   addToFavorites(plant: IPlantModel): void;
   removeFromFavorites(plantId: string): void;
   logout(): void;
+  isPlantInFavorites(plantId: string): boolean;
 }
 
 interface Props {
@@ -35,10 +36,18 @@ function UserContextProvider({ children }: Props) {
     localStorage.removeItem('plant');
   };
 
+  const isPlantInFavorites = (plantId: string): boolean => {
+    const allPlantIdsInUserFavorites = currentUser?.favorites.map((item) => item._id);
+    return allPlantIdsInUserFavorites?.includes(plantId) ? true : false;
+  };
+
   const addToFavorites = (createdPlant: IPlantModel): void => {
+    if (isPlantInFavorites(createdPlant._id!)) {
+      return;
+    }
+
     const updatedUser = { ...currentUser, favorites: [...currentUser!.favorites, createdPlant] };
     setCurrentUser(updatedUser as IUser);
-    clearLocalStorage();
   };
 
   const removeFromFavorites = (plantId: string): void => {
@@ -53,7 +62,7 @@ function UserContextProvider({ children }: Props) {
     clearLocalStorage();
   };
 
-  return <UserContext.Provider value={{ currentUser, isLoggedIn, handleCurrentUserInfo, logout, addToFavorites, removeFromFavorites }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ currentUser, isLoggedIn, handleCurrentUserInfo, logout, addToFavorites, removeFromFavorites, isPlantInFavorites }}>{children}</UserContext.Provider>;
 }
 
 export { UserContextProvider, UserContext };
