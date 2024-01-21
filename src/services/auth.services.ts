@@ -3,6 +3,11 @@ import { IUser } from "../models/user.model";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
+interface ILoginInfo {
+    message: string, 
+    userInfo: IUser
+}
+
 //***************** Post user signup data ****************
 export const signup = async (requestBody: object):Promise<{email: string}> => {
 
@@ -16,7 +21,7 @@ export const signup = async (requestBody: object):Promise<{email: string}> => {
 }
 
 // ***************** Post user login data ****************
-export const login = async (requestBody: object):Promise<IUser> => {
+export const login = async (requestBody: object):Promise<ILoginInfo> => {
 
   const options = {
       headers: {
