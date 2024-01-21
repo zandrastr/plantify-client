@@ -1,19 +1,24 @@
 import { FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, VStack, Link as ChakraLink, Button } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { ILoginData } from '../models/auth.model';
 import { login } from '../services/auth.services';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { IUserContext, UserContext } from '../contexts/userContext';
 
 const LoginPage = () => {
+  const { handleCurrentUserInfo } = useContext(UserContext) as IUserContext;
+
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [emailDefaultValue, setEmailDefaultValue] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const email = localStorage.getItem('email');
     if (email) {
       setEmailDefaultValue(email);
     }
+    localStorage.removeItem('email');
   }, []);
 
   const {
@@ -26,7 +31,16 @@ const LoginPage = () => {
     setServerErrorMessage('');
     try {
       const requestBody = { email, password };
-      await login(requestBody);
+      const { userInfo } = await login(requestBody);
+      handleCurrentUserInfo(userInfo);
+
+      const plantInLocal = localStorage.getItem('plant');
+
+      if (plantInLocal) {
+        navigate('/plant');
+      } else {
+        navigate('/');
+      }
     } catch (error: any) {
       console.error('Error submitting login data:', error);
       const errorMessage = error.response.data.message;
