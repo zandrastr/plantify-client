@@ -1,6 +1,6 @@
 import { Button, Text, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody } from '@chakra-ui/react';
 
-interface RemovePlantModalProps {
+interface ConfirmModalProps {
   message: string;
   buttonText: string;
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface RemovePlantModalProps {
   mainFunction: () => void;
 }
 
-const RemovePlantModal = ({ message, buttonText, isOpen, onClose, mainFunction }: RemovePlantModalProps) => {
+const ConfirmModal = ({ message, buttonText, isOpen, onClose, mainFunction }: ConfirmModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -29,4 +29,4 @@ const RemovePlantModal = ({ message, buttonText, isOpen, onClose, mainFunction }
   );
 };
 
-export default RemovePlantModal;
+export default ConfirmModal;
