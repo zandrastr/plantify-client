@@ -10,6 +10,7 @@ export interface IUserContext {
   removeFromFavorites(plantId: string): void;
   logout(): void;
   isPlantInFavorites(plantId: string): boolean;
+  updateUserProfile(userInfo: IUser): void;
 }
 
 interface Props {
@@ -62,7 +63,16 @@ function UserContextProvider({ children }: Props) {
     clearLocalStorage();
   };
 
-  return <UserContext.Provider value={{ currentUser, isLoggedIn, handleCurrentUserInfo, logout, addToFavorites, removeFromFavorites, isPlantInFavorites }}>{children}</UserContext.Provider>;
+  const updateUserProfile = (userInfo: IUser) => {
+    const updatedUser = { ...currentUser, email: userInfo.email, name: userInfo.name };
+    setCurrentUser(updatedUser as IUser);
+  };
+
+  return (
+    <UserContext.Provider value={{ currentUser, isLoggedIn, handleCurrentUserInfo, logout, addToFavorites, removeFromFavorites, isPlantInFavorites, updateUserProfile }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export { UserContextProvider, UserContext };
