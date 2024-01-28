@@ -1,5 +1,6 @@
 import { Button, Heading, Image, Text, VStack, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { IPlantModel } from '../models/plant.model';
+import WebShare from './WebShare';
 
 interface PlantCardModalProps {
   selectedPlant: IPlantModel;
@@ -22,7 +23,9 @@ const PlantCardModal = ({ selectedPlant, isOpen, onClose }: PlantCardModalProps)
             <Text>{selectedPlant.description}</Text>
             <Text>{selectedPlant.waterNeeds}</Text>
             <Text>{selectedPlant.sunNeeds}</Text>
-            <Button>Share</Button>
+            <Button>
+              <WebShare name={selectedPlant.name} latinName={selectedPlant.latinName}></WebShare>
+            </Button>
           </VStack>
         </ModalBody>
       </ModalContent>

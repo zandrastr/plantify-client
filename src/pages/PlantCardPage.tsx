@@ -1,17 +1,34 @@
-import { Button, Heading, Image, Link, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, Image, Link, Text, VStack, useDisclosure } from '@chakra-ui/react';
 import { IPlantModel } from '../models/plant.model';
 import { useContext, useEffect, useState } from 'react';
 import { IUserContext, UserContext } from '../contexts/userContext';
-import { useNavigate } from 'react-router-dom';
-import { getPlant, savePlant } from '../services/plant.services';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getPlant, savePlant, savePlantOnShare } from '../services/plant.services';
 import { addPlant, removePlant } from '../services/user.services';
+import ConfirmModal from '../components/ConfirmModal';
+import WebShare from '../components/WebShare';
 
 const PlantCardPage = () => {
   const { currentUser, addToFavorites, removeFromFavorites, isLoggedIn, isPlantInFavorites } = useContext(UserContext) as IUserContext;
   const [plantInfo, setPlantInfo] = useState<IPlantModel | null>(null);
   const [foundPlantInDb, setFoundPlantInDb] = useState<IPlantModel | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string>('');
+  const { isOpen: isConfirmModalOpen, onOpen: onOpenConfirmModal, onClose: onCloseConfirmModal } = useDisclosure();
   const navigate = useNavigate();
+  const { latinName } = useParams();
+
+  useEffect(() => {
+    if (latinName) {
+      try {
+        const getPlantFromDb = async () => {
+          const plant = await getPlant(latinName);
+          setPlantInfo(plant);
+        };
+        getPlantFromDb();
+      } catch (error) {
+        console.error('Something went wrong:', error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const plantResult = localStorage.getItem('plant');
@@ -49,8 +66,7 @@ const PlantCardPage = () => {
 
   const addPlantToFavorites = async () => {
     if (!isLoggedIn) {
-      // FIX: create modal that redirects to login
-      navigate('/login');
+      onOpenConfirmModal();
       return;
     }
 
@@ -60,15 +76,13 @@ const PlantCardPage = () => {
           if (isPlantInFavorites(foundPlantInDb._id!)) {
             throw 'Plant already in favorites';
           }
-          const { message } = await addPlant(currentUser._id, foundPlantInDb._id!);
+          await addPlant(currentUser._id, foundPlantInDb._id!);
           setPlantInfo(foundPlantInDb);
           addToFavorites(foundPlantInDb);
-          setSuccessMessage(message);
         } else {
-          const { message, createdPlant } = await savePlant(currentUser._id, plantInfo);
+          const { createdPlant } = await savePlant(currentUser._id, plantInfo);
           setPlantInfo(createdPlant);
           addToFavorites(createdPlant);
-          setSuccessMessage(message);
           setFoundPlantInDb(createdPlant);
         }
       } catch (error) {
@@ -80,8 +94,7 @@ const PlantCardPage = () => {
   const removePlantFromFavorites = async () => {
     if (currentUser && plantInfo) {
       try {
-        const { message } = await removePlant(currentUser._id, plantInfo._id!);
-        setSuccessMessage(message);
+        await removePlant(currentUser._id, plantInfo._id!);
         removeFromFavorites(plantInfo._id!);
       } catch (error) {
         console.error('Something went wrong:', error);
@@ -89,18 +102,36 @@ const PlantCardPage = () => {
     }
   };
 
+  const handleShare = async () => {
+    if (plantInfo && !foundPlantInDb) {
+      const { plant } = await savePlantOnShare(plantInfo);
+      setFoundPlantInDb(plant);
+    }
+  };
+
   return (
-    <VStack>
-      <Image boxSize='150px' src={plantInfo?.imageUrl} fallbackSrc='https://via.placeholder.com/150' alt={plantInfo?.name} />
-      <Heading>{plantInfo?.name}</Heading>
-      <Heading>{plantInfo?.latinName}</Heading>
-      <Link onClick={addPlantToFavorites}>Save to favorites</Link>
-      {plantInfo?._id && <Link onClick={removePlantFromFavorites}>Remove from favorites</Link>}
-      <Text>{plantInfo?.description}</Text>
-      <Text>{plantInfo?.waterNeeds}</Text>
-      <Text>{plantInfo?.sunNeeds}</Text>
-      <Button>Share</Button>
-    </VStack>
+    <>
+      <VStack>
+        <Image boxSize='150px' src={plantInfo?.imageUrl} fallbackSrc='https://via.placeholder.com/150' alt={plantInfo?.name} />
+        <Heading>{plantInfo?.name}</Heading>
+        <Heading>{plantInfo?.latinName}</Heading>
+        <Link onClick={addPlantToFavorites}>Save to favorites</Link>
+        {plantInfo?._id && <Link onClick={removePlantFromFavorites}>Remove from favorites</Link>}
+        <Text>{plantInfo?.description}</Text>
+        <Text>{plantInfo?.waterNeeds}</Text>
+        <Text>{plantInfo?.sunNeeds}</Text>
+        <Box onClick={handleShare}>{plantInfo && <WebShare name={plantInfo.name} latinName={plantInfo.latinName} />}</Box>
+      </VStack>
+
+      <ConfirmModal
+        message={`Please login to save the plant`}
+        buttonText='Login'
+        isOpen={isConfirmModalOpen}
+        onClose={onCloseConfirmModal}
+        onOpen={onOpenConfirmModal}
+        mainFunction={() => navigate('/login')}
+      />
+    </>
   );
 };
 
