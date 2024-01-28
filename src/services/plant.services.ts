@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IPlantModel } from '../models/plant.model';
+import { formatLatinNameDb, formatLatinNameDisplay } from '../utils/app.utils';
 
 const UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 const UNSPLASH_BASE_URL = import.meta.env.VITE_UNSPLASH_BASE_URL;
@@ -9,8 +10,10 @@ const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
 //******************** Get one plant from DB ********************
 export const getPlant = async (latinName :string):Promise<IPlantModel> => {
-    const { data } = await axios.get(`${SERVER_API_URL}/plants/${latinName}`);
-    return data;
+    const plantLatinName =  formatLatinNameDb(latinName);
+    const { data } = await axios.get(`${SERVER_API_URL}/plants/${plantLatinName}`);
+    const foundPlant = {...data, latinName: formatLatinNameDisplay(data.latinName)}
+    return foundPlant;
 };
 
 //******************** Get plant image ********************
@@ -60,9 +63,25 @@ export const savePlant = async (userId:string, plant:IPlantModel):Promise<{messa
 
     const requestBody = {
        _id: userId,  
-        ...plant,
+        ...plant, 
+        latinName: formatLatinNameDb(plant.latinName),
     };
 
     const { data } = await axios.post(`${SERVER_API_URL}/plants/save`, requestBody, options);
+    const createdPlant = {...data.createdPlant, latinName: formatLatinNameDisplay(data.createdPlant.latinName)}
+    return {message: data.message, createdPlant};
+};
+
+//***************** Save plant in DB - On share ****************
+export const savePlantOnShare = async (plant:IPlantModel):Promise<{message: string, plant: IPlantModel}> => {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+
+    const requestBody = {...plant, latinName: formatLatinNameDb(plant.latinName)};
+
+    const { data } = await axios.post(`${SERVER_API_URL}/plants/share/save`, requestBody, options);
     return data;
 };
