@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
         element: <PlantCardPage />,
       },
       {
+        path: '/plant/:latinName',
+        element: <PlantCardPage />,
+      },
+      {
         path: '/favorites',
         element: <PrivateRoute element={<FavoritesPage />} />,
       },
