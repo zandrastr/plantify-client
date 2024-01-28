@@ -1,7 +1,7 @@
 import { FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, VStack, Link as ChakraLink, Button, HStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getPlantImage, getPlantInfo } from '../services/plant.services';
 import { IUserContext, UserContext } from '../contexts/userContext';
 export interface IPlantSearch {
@@ -19,6 +19,10 @@ const HomePage = () => {
     formState: { errors, isSubmitting },
     register,
   } = useForm<IPlantSearch>();
+
+  useEffect(() => {
+    localStorage.removeItem('plant');
+  }, []);
 
   const onSubmit: SubmitHandler<IPlantSearch> = async ({ plantName }) => {
     setServerErrorMessage('');

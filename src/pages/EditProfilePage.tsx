@@ -59,8 +59,8 @@ const EditProfilePage = () => {
     try {
       const { userInfo } = await updateUser(currentUser!._id, email, password, name);
       updateUserProfile(userInfo);
-      navigate('/profile');
       handleToast();
+      navigate('/profile');
     } catch (error: any) {
       console.error('Error submitting edit profile data:', error);
       const errorMessage = error.response.data.message;
