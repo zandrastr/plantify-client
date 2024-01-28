@@ -25,11 +25,11 @@ const FavoritesPage = () => {
     setSelectedPlantToRemove(plant);
   };
 
-  const confirmRemove = async (plantId: string) => {
-    if (currentUser && plantId) {
+  const confirmRemove = async () => {
+    if (currentUser && selectedPlantToRemove) {
       try {
-        await removePlant(currentUser._id, plantId);
-        removeFromFavorites(plantId);
+        await removePlant(currentUser._id, selectedPlantToRemove._id!);
+        removeFromFavorites(selectedPlantToRemove._id!);
         handleToast();
       } catch (error) {
         console.error('Something went wrong:', error);
@@ -51,43 +51,33 @@ const FavoritesPage = () => {
   return (
     <>
       <Heading>Favorites</Heading>
-      {userFavorites.length > 0 ? (
-        <>
-          {userFavorites.map((plant: IPlantModel) => (
-            <Box key={plant._id}>
-              <HStack>
-                <HStack onClick={() => handleDisplayPlantModal(plant)}>
-                  <Image boxSize='50px' src={plant.imageUrl} fallbackSrc='https://via.placeholder.com/50' alt={plant.name} />
-                  <VStack>
-                    <Text>{plant.name}</Text>
-                    <Text>{plant.latinName}</Text>
-                  </VStack>
-                </HStack>
-                <Button onClick={() => handleRemove(plant)}>-</Button>
+      {userFavorites.length === 0 && <Text>No plants saved yet.</Text>}
+      {userFavorites.length > 0 &&
+        userFavorites.map((plant: IPlantModel) => (
+          <Box key={plant._id}>
+            <HStack>
+              <HStack onClick={() => handleDisplayPlantModal(plant)}>
+                <Image boxSize='50px' src={plant.imageUrl} fallbackSrc='https://via.placeholder.com/50' alt={plant.name} />
+                <VStack>
+                  <Text>{plant.name}</Text>
+                  <Text>{plant.latinName}</Text>
+                </VStack>
               </HStack>
-            </Box>
-          ))}
-        </>
-      ) : (
-        <Text>No plants saved yet</Text>
-      )}
+              <Button onClick={() => handleRemove(plant)}>-</Button>
+            </HStack>
+          </Box>
+        ))}
       {selectedPlantToRemove && (
-        <>
-          <ConfirmModal
-            message={`Do you want to remove ${selectedPlantToRemove.name} from favorites?`}
-            buttonText='Confirm Remove'
-            isOpen={isConfirmModalOpen}
-            onClose={onCloseConfirmModal}
-            onOpen={onOpenConfirmModal}
-            mainFunction={() => confirmRemove(selectedPlantToRemove._id!)}
-          />
-        </>
+        <ConfirmModal
+          message={`Do you want to remove ${selectedPlantToRemove.name} from favorites?`}
+          buttonText='Confirm Remove'
+          isOpen={isConfirmModalOpen}
+          onClose={onCloseConfirmModal}
+          onOpen={onOpenConfirmModal}
+          mainFunction={confirmRemove}
+        />
       )}
-      {selectedPlantToDisplay && (
-        <>
-          <PlantCardModal selectedPlant={selectedPlantToDisplay} isOpen={isPlantCardModalOpen} onClose={onClosePlantCardModal} onOpen={onOpenPlantCardModal} />
-        </>
-      )}
+      {selectedPlantToDisplay && <PlantCardModal selectedPlant={selectedPlantToDisplay} isOpen={isPlantCardModalOpen} onClose={onClosePlantCardModal} onOpen={onOpenPlantCardModal} />}
     </>
   );
 };
