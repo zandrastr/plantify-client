@@ -17,7 +17,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const UserContext = createContext<IUserContext | null>(null);
+const UserContext = createContext<IUserContext>({} as IUserContext);
 
 function UserContextProvider({ children }: Props) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
