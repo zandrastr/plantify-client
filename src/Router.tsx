@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
 import { Layout } from './Layout';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import PrivateRoute from './components/PrivateRoute';
 const SignupPage = lazy(() => import('./pages/SignupPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));

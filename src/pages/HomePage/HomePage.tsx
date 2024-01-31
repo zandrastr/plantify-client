@@ -2,8 +2,8 @@ import { FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { getPlantImage, getPlantInfo } from '../services/plant.services';
-import { IUserContext, UserContext } from '../contexts/userContext';
+import { getPlantImage, getPlantInfo } from '../../services/plant.services';
+import { IUserContext, UserContext } from '../../contexts/userContext';
 export interface IPlantSearch {
   plantName: string;
 }
