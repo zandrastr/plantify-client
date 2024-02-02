@@ -1,31 +1,30 @@
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, HStack, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { IUserContext, UserContext } from '../contexts/userContext';
-import { HamburgerMenu } from './HamburgerMenu';
+import { IUserContext, UserContext } from '../../contexts/userContext';
+import { HamburgerMenu } from '../HamburgerMenu/HamburgerMenu';
 import { PiPottedPlant } from 'react-icons/pi';
-import { useTheme } from '@chakra-ui/react';
+import './Nav.scss';
 
 export const Nav = () => {
   const { logout, isLoggedIn } = useContext(UserContext) as IUserContext;
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const theme = useTheme();
 
   return (
-    <HStack justify='space-between' fontFamily={theme.fonts.robotoMono} fontSize={18} fontWeight={600} mt={[2, 2, 10]} mb={[2, 2, 10]} maxW='100%'>
-      <HStack ml={8}>
-        <PiPottedPlant fontSize={28} />
+    <HStack className='navWrapper' mt={[2, 2, 10]} mb={[2, 2, 10]}>
+      <HStack className='logoWrapper'>
+        <PiPottedPlant />
         <Text>Plantify</Text>
       </HStack>
 
       {isMobile && (
-        <HStack m={5}>
+        <HStack className='menuWrapperMobile'>
           <HamburgerMenu />
         </HStack>
       )}
 
       {!isMobile && (
-        <HStack spacing={8} mr={20}>
+        <HStack className='menuWrapperDesktop' spacing={12}>
           {isLoggedIn && (
             <>
               <ChakraLink as={ReactRouterLink} to='/'>

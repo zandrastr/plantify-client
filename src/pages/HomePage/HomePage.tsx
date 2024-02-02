@@ -1,10 +1,10 @@
-import { FormControl, FormErrorMessage, FormLabel, Heading, Input, Text, VStack, Button, useBreakpointValue, Box, HStack } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Heading, Input, Text, VStack, Button, useBreakpointValue, Box, HStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getPlantImage, getPlantInfo } from '../../services/plant.services';
-import { useTheme } from '@chakra-ui/react';
 import { PiPottedPlant } from 'react-icons/pi';
+import './HomePage.scss';
 
 export interface IPlantSearch {
   plantName: string;
@@ -15,8 +15,6 @@ const HomePage = () => {
   const [plantNotFoundMessage, setPlantNotFoundMessage] = useState('');
   const navigate = useNavigate();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const theme = useTheme();
-  const backgroundImage = "url('/bg-startpage.jpg')";
 
   const {
     handleSubmit,
@@ -51,42 +49,30 @@ const HomePage = () => {
   return (
     <>
       {isMobile && (
-        <VStack w='100%'>
-          <Box w='100%' h='20vh' mb={20} display='flex' overflow='hidden' position='relative' backgroundImage={backgroundImage} backgroundSize='cover' backgroundPosition='center'>
-            <Text
-              fontFamily={theme.fonts.robotoMono}
-              position='absolute'
-              top='45%'
-              left='50%'
-              transform='translate(-50%, -50%)'
-              textAlign='center'
-              color={theme.colors.white}
-              fontSize={['m', 'm', 'xl']}
-              fontWeight='bold'
-              w='70%'
-            >
+        <VStack className='mobileWrapper'>
+          <Box className='sloganContainer'>
+            <Text className='sloganText' fontSize={['m', 'm', 'xl']}>
               Your AI-powered plant search engine & virtual plant library
             </Text>
           </Box>
 
-          {plantNotFoundMessage !== '' && <Text color={theme.colors.warning}>{plantNotFoundMessage}</Text>}
-          {serverErrorMessage !== '' && <Text color={theme.colors.warning}>{serverErrorMessage}</Text>}
+          {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
+          {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FormControl isInvalid={errors.plantName !== undefined}>
-              <FormLabel htmlFor='plantName'></FormLabel>
               <Input
-                placeholder='Monstera...'
-                id='plantName'
+                className='formInput'
+                placeholder='🔍 Plant name...'
+                aria-label='Plant name'
                 {...register('plantName', {
                   required: 'Plant name is required',
                 })}
-                style={{ width: '300px', border: '2px solid black', borderRadius: '8px', padding: '10px' }}
               />
               <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
             </FormControl>
 
-            <Button mt={6} pl={14} pr={14} colorScheme='green' type='submit' isLoading={isSubmitting} bg='black'>
+            <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
               Search
             </Button>
           </form>
@@ -94,50 +80,38 @@ const HomePage = () => {
       )}
 
       {!isMobile && (
-        <VStack h='100%'>
-          <Box w='100%' h='40vh' display='flex' overflow='hidden' position='relative' backgroundImage={backgroundImage} backgroundSize='cover' backgroundPosition='center'>
-            <Text
-              fontFamily={theme.fonts.robotoMono}
-              position='absolute'
-              top='38%'
-              left='50%'
-              transform='translate(-50%, -50%)'
-              textAlign='center'
-              color={theme.colors.white}
-              fontSize={['2xl', '2xl', '3xl']}
-              fontWeight='bold'
-              width='50%'
-            >
+        <VStack className='desktopWrapper'>
+          <Box className='sloganContainer'>
+            <Text className='sloganText' fontSize={['2xl', '2xl', '3xl']}>
               Your AI-powered plant search engine & virtual plant library
             </Text>
           </Box>
 
-          <Box w='100%' display='flex' justifyContent='center' position='relative'>
-            <VStack mt={-40} pl={40} pr={40} py={40} bg={theme.colors.white} borderRadius={16} boxShadow='xl'>
-              <HStack mb={8}>
-                <PiPottedPlant fontSize={40} />
-                <Heading fontFamily={theme.fonts.robotoMono} fontSize={['xl', 'xl', '3xl']} mt={2}>
+          <Box className='searchContainer'>
+            <VStack className='searchWrapper'>
+              <HStack className='headingWrapper'>
+                <PiPottedPlant className='icon' />
+                <Heading className='heading' fontSize={['xl', 'xl', '3xl']}>
                   Plantify
                 </Heading>
               </HStack>
-              {plantNotFoundMessage !== '' && <Text color='red'>{plantNotFoundMessage}</Text>}
-              {serverErrorMessage !== '' && <Text color='red'>{serverErrorMessage}</Text>}
+              {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
+              {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <FormControl isInvalid={errors.plantName !== undefined}>
-                  <FormLabel fontSize={['xl', 'xl', '3xl']} htmlFor='plantName' />
                   <Input
-                    placeholder='🔍 Monstera...'
-                    id='plantName'
+                    className='formInput'
+                    placeholder='🔍 Plant name...'
+                    aria-label='Plant name'
                     {...register('plantName', {
                       required: 'Plant name is required',
                     })}
-                    style={{ width: '400px', border: '2px solid black', borderRadius: '8px', padding: '10px' }}
                   />
                   <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
                 </FormControl>
 
-                <Button mt={6} pl={14} pr={14} colorScheme='green' type='submit' isLoading={isSubmitting} bg='black'>
+                <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
                   Search
                 </Button>
               </form>
