@@ -1,0 +1,18 @@
+// ************************ Colors ************************
+$white: #fdfdfd;
+$offWhite: #F9F9F9;
+$black: #050505;
+$red: #ff0000;
+$green: #206741;
+$gray: #888888;
+$gray-10: rgba(0, 0, 0, 0.1);
+$transparent: rgba(255, 255, 255, 0);
+
+// ************************ Fonts ************************
+$mono: 'Roboto Mono', monospace;
+
+// ************************ Functions ************************
+@use 'sass:math';
+@function rem($pxValue) {
+    @return math.div($pxValue, 16px) * 1rem; 
+}

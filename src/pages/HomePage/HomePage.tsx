@@ -1,18 +1,20 @@
-import { FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, VStack, Link as ChakraLink, Button, HStack } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Heading, Input, Text, VStack, Button, useBreakpointValue, Box, HStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getPlantImage, getPlantInfo } from '../../services/plant.services';
-import { IUserContext, UserContext } from '../../contexts/userContext';
+import { PiPottedPlant } from 'react-icons/pi';
+import './HomePage.scss';
+
 export interface IPlantSearch {
   plantName: string;
 }
 
 const HomePage = () => {
-  const { isLoggedIn } = useContext(UserContext) as IUserContext;
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [plantNotFoundMessage, setPlantNotFoundMessage] = useState('');
   const navigate = useNavigate();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const {
     handleSubmit,
@@ -45,43 +47,79 @@ const HomePage = () => {
   };
 
   return (
-    <VStack>
-      <Image src='' fallbackSrc='' alt='' />
-      <Heading>Find a plant</Heading>
-      {plantNotFoundMessage !== '' && <Text color='red'>{plantNotFoundMessage}</Text>}
-      {serverErrorMessage !== '' && <Text color='red'>{serverErrorMessage}</Text>}
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <FormControl isInvalid={errors.plantName !== undefined}>
-          <FormLabel htmlFor='plantName'>Plant name</FormLabel>
-          <Input
-            id='plantName'
-            {...register('plantName', {
-              required: 'Plant name is required',
-            })}
-          />
-          <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
-        </FormControl>
+    <>
+      {isMobile && (
+        <VStack className='mobileWrapper'>
+          <Box className='sloganContainer'>
+            <Text className='sloganText' fontSize={['m', 'm', 'xl']}>
+              Your AI-powered plant search engine & virtual plant library
+            </Text>
+          </Box>
 
-        <Button mt={4} colorScheme='teal' type='submit' isLoading={isSubmitting}>
-          Search
-        </Button>
-      </form>
-      {!isLoggedIn && (
-        <>
-          <ChakraLink as={ReactRouterLink} to='/login'>
-            Login
-          </ChakraLink>
-          <HStack>
-            <Text> New user?</Text>
-            <ChakraLink as={ReactRouterLink} to='/signup'>
-              Signup
-            </ChakraLink>
-          </HStack>
-        </>
+          {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
+          {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
+
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <FormControl isInvalid={errors.plantName !== undefined}>
+              <Input
+                className='formInput'
+                placeholder='🔍 Plant name...'
+                aria-label='Plant name'
+                {...register('plantName', {
+                  required: 'Plant name is required',
+                })}
+              />
+              <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
+            </FormControl>
+
+            <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
+              Search
+            </Button>
+          </form>
+        </VStack>
       )}
-      ;
-    </VStack>
+
+      {!isMobile && (
+        <VStack className='desktopWrapper'>
+          <Box className='sloganContainer'>
+            <Text className='sloganText' fontSize={['2xl', '2xl', '3xl']}>
+              Your AI-powered plant search engine & virtual plant library
+            </Text>
+          </Box>
+
+          <Box className='searchContainer'>
+            <VStack className='searchWrapper'>
+              <HStack className='headingWrapper'>
+                <PiPottedPlant className='icon' />
+                <Heading className='heading' fontSize={['xl', 'xl', '3xl']}>
+                  Plantify
+                </Heading>
+              </HStack>
+              {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
+              {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
+
+              <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <FormControl isInvalid={errors.plantName !== undefined}>
+                  <Input
+                    className='formInput'
+                    placeholder='🔍 Plant name...'
+                    aria-label='Plant name'
+                    {...register('plantName', {
+                      required: 'Plant name is required',
+                    })}
+                  />
+                  <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
+                </FormControl>
+
+                <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
+                  Search
+                </Button>
+              </form>
+            </VStack>
+          </Box>
+        </VStack>
+      )}
+    </>
   );
 };
-
 export default HomePage;

@@ -1,0 +1,26 @@
+@import '../../_utils';
+
+.navWrapper {
+    display: flex;
+    justify-content: space-between;
+    font-family: $mono;
+    font-size: rem(18px);
+    font-weight: 600;
+    max-width: 100%;
+}
+
+.logoWrapper {
+    margin-left: rem(20px);
+
+    svg {
+        font-size: rem(28px);
+    }
+}
+
+.menuWrapperMobile {
+    margin: rem(10px);
+}
+
+.menuWrapperDesktop {
+    margin-right: rem(60px);
+}
