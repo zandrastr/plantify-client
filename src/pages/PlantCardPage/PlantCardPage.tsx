@@ -1,18 +1,22 @@
-import { Box, Heading, Image, Link, Text, VStack, useDisclosure } from '@chakra-ui/react';
-import { IPlantModel } from '../models/plant.model';
+import { Box, Button, HStack, Heading, Image, Text, VStack, useBreakpointValue, useDisclosure } from '@chakra-ui/react';
+import { IPlantModel } from '../../models/plant.model';
 import { useContext, useEffect, useState } from 'react';
-import { IUserContext, UserContext } from '../contexts/userContext';
+import { IUserContext, UserContext } from '../../contexts/userContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPlant, savePlant, savePlantOnShare } from '../services/plant.services';
-import { addPlant, removePlant } from '../services/user.services';
-import ConfirmModal from '../components/ConfirmModal';
-import WebShare from '../components/WebShare';
+import { getPlant, savePlant, savePlantOnShare } from '../../services/plant.services';
+import { addPlant, removePlant } from '../../services/user.services';
+import ConfirmModal from '../../components/ConfirmModal';
+import WebShare from '../../components/WebShare';
+import './PlantCardPage.scss';
+import { FaDroplet, FaSun, FaRegHeart, FaHeart } from 'react-icons/fa6';
 
 const PlantCardPage = () => {
   const { currentUser, addToFavorites, removeFromFavorites, isLoggedIn, isPlantInFavorites } = useContext(UserContext) as IUserContext;
   const [plantInfo, setPlantInfo] = useState<IPlantModel | null>(null);
   const [foundPlantInDb, setFoundPlantInDb] = useState<IPlantModel | null>(null);
   const { isOpen: isConfirmModalOpen, onOpen: onOpenConfirmModal, onClose: onCloseConfirmModal } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   const navigate = useNavigate();
   const { latinName } = useParams();
 
@@ -111,16 +115,43 @@ const PlantCardPage = () => {
 
   return (
     <>
-      <VStack>
-        <Image boxSize='150px' src={plantInfo?.imageUrl} fallbackSrc='https://via.placeholder.com/150' alt={plantInfo?.name} />
-        <Heading>{plantInfo?.name}</Heading>
-        <Heading>{plantInfo?.latinName}</Heading>
-        <Link onClick={addPlantToFavorites}>Save to favorites</Link>
-        {plantInfo?._id && <Link onClick={removePlantFromFavorites}>Remove from favorites</Link>}
-        <Text>{plantInfo?.description}</Text>
-        <Text>{plantInfo?.waterNeeds}</Text>
-        <Text>{plantInfo?.sunNeeds}</Text>
-        <Box onClick={handleShare}>{plantInfo && <WebShare name={plantInfo.name} latinName={plantInfo.latinName} />}</Box>
+      <Box className='plantCardTop'></Box>
+      <VStack className={`${isMobile ? 'wrapperMobile' : 'wrapperDesktop'}`}>
+        <Image src={plantInfo?.imageUrl} alt={plantInfo?.name} />
+        <Heading className='name'>{plantInfo?.name}</Heading>
+
+        <HStack>
+          <Box className='nameHeartWrapper'>
+            <Heading className='latinName'>{plantInfo?.latinName}</Heading>
+
+            <Box className='heartSymbol'>
+              {isPlantInFavorites(foundPlantInDb?._id!) ? (
+                <Button onClick={removePlantFromFavorites}>
+                  <FaHeart aria-label='Remove plant from favorites' role='button' tabIndex={0} />
+                </Button>
+              ) : (
+                <Button onClick={addPlantToFavorites}>
+                  <FaRegHeart aria-label='Add plant to favorites' role='button' tabIndex={0} />
+                </Button>
+              )}
+            </Box>
+          </Box>
+        </HStack>
+
+        <Text className='description'>{plantInfo?.description}</Text>
+
+        <HStack className='sunWaterWrapper'>
+          <FaDroplet aria-label='Care instructions, water' />
+          <Text className='facts'>{plantInfo?.waterNeeds}</Text>
+        </HStack>
+        <HStack className='sunWaterWrapper'>
+          <FaSun aria-label='Care instructions, sun' />
+          <Text className='facts'>{plantInfo?.sunNeeds}</Text>
+        </HStack>
+
+        <Box className='shareButton' onClick={handleShare}>
+          {plantInfo && <WebShare name={plantInfo.name} latinName={plantInfo.latinName} />}
+        </Box>
       </VStack>
 
       <ConfirmModal

@@ -39,10 +39,10 @@ export const getPlantInfo = async (plantName:string):Promise<IPlantModel> => {
             {'role': 'system', 'content': 'You are a helpful assistant designed to output real plant information in JSON. Follow these instructions in all your responses: 1. Only state real plants. 2. Do not state fictional plants. 3. If it is not a real plant, state plantUndefined for the properties latinName, description, sunNeeds, waterNeeds. 4. Do not state the plant name in sunNeeds or waterNeeds.'},
             {'role': 'user', 'content': `Create a JSON object with the following structure about a plant called ${plantName}:
             In property 'name': State the plants common name.
-            In property 'latinName': State the plants latin name.
+            In property 'latinName': State the plants scientific latin name.
             In property 'description' State facts about the plant in 3 sentences. Do not state anything in feet, instead use centimetre or metre.
-            In property 'sunNeeds': State the sun needs in a few words in maximum one sentence. Do not state the plant name in the sentence. 
-            In property 'waterNeeds': State the water needs in a few words in maximum one sentence. Do not state the plant name in the sentence. Do not state anything in inch, instead use centimetre.
+            In property 'sunNeeds': State the sun needs in no more than ten words. Do not state the plant name in the sentence. 
+            In property 'waterNeeds': State the water needs in no more than ten words. Do not state the plant name in the sentence.
             ` }
         ],
         'max_tokens': 200,
