@@ -1,0 +1,120 @@
+@import '../../_utils';
+
+.favoritesTop {
+    width: 100%;
+    height: 20vh;
+    margin-bottom: rem(20px);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    background-image: url($plant-card-bg);
+    background-color: $green-light;
+    background-size: cover;
+    background-position: center;
+}
+
+.favoritesWrapper {
+    position: relative;
+    margin: auto;
+    margin-bottom: rem(20px);
+    width: 80%;
+    max-width: rem(900px);
+    margin-top: rem(-90px);
+    padding: rem(20px);
+    background-color: $white;
+    border-radius: rem(16px);
+    box-shadow: 0px rem(4px) rem(8px) $gray-10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $mono;
+
+    h2 {
+        font-family: $mono;
+        margin-top: rem(20px);;
+        margin-bottom: rem(40px);
+    }
+}
+
+.plantContainer {
+    width: 100%;
+    background: $offWhite;
+    margin-bottom: 20px;
+    border-radius: rem(16px);
+    box-shadow: 0px rem(4px) rem(8px) $gray-10;
+    display: flex;
+    justify-content: space-between;
+    
+    img {
+        border-radius: 300px;
+        margin-left: rem(5px);
+        width: rem(80px);
+        height: rem(80px);
+        object-fit: cover;
+    }
+
+    .deleteBtn {
+        margin: auto;
+        margin-right: rem(20px);
+        background-color: $transparent;
+    }
+
+    svg {
+        font-size: 24px;
+    }
+}
+
+.nameWrapper {
+    margin-left: rem(20px);
+    display: flex;
+    align-items: start;
+}
+
+.name {
+    font-weight: 600;
+    font-size: rem(18px);
+}
+
+.latinName {
+    font-weight: 400;
+    font-size: rem(16px);
+    font-style: italic;
+}
+
+.plantContainer:hover {
+    background: $mint;
+}
+
+.onePlant {
+    width: 100%;
+    padding: rem(15px);
+}
+
+.favoritesMobile {
+    width: 90%;
+
+    .onePlant {
+        padding: rem(10px);
+    }
+    
+    img {
+        width: rem(60px);
+        height: rem(60px);
+    }
+
+    .nameWrapper {
+        margin-left: rem(10px);
+    }
+
+    .name {
+        font-size: rem(16px);
+    }
+    
+    .latinName {
+        font-size: rem(14px);
+    }
+
+    .deleteBtn {
+        margin-right: rem(8px);
+    }
+}

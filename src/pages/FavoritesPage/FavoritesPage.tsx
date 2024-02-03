@@ -1,10 +1,12 @@
-import { Box, Button, HStack, Heading, Image, Text, VStack, useToast, useDisclosure } from '@chakra-ui/react';
-import { IPlantModel } from '../models/plant.model';
+import { Box, Button, HStack, Heading, Image, Text, VStack, useToast, useDisclosure, useBreakpointValue } from '@chakra-ui/react';
+import { IPlantModel } from '../../models/plant.model';
 import { useContext, useState } from 'react';
-import { IUserContext, UserContext } from '../contexts/userContext';
-import { removePlant } from '../services/user.services';
-import ConfirmModal from '../components/ConfirmModal';
-import PlantCardModal from '../components/PlantCardModal';
+import { IUserContext, UserContext } from '../../contexts/userContext';
+import { removePlant } from '../../services/user.services';
+import ConfirmModal from '../../components/ConfirmModal';
+import PlantCardModal from '../../components/PlantCardModal/PlantCardModal';
+import { MdDelete } from 'react-icons/md';
+import './FavoritesPage.scss';
 
 const FavoritesPage = () => {
   const { currentUser, removeFromFavorites } = useContext(UserContext) as IUserContext;
@@ -14,6 +16,7 @@ const FavoritesPage = () => {
   const { isOpen: isConfirmModalOpen, onOpen: onOpenConfirmModal, onClose: onCloseConfirmModal } = useDisclosure();
   const { isOpen: isPlantCardModalOpen, onOpen: onOpenPlantCardModal, onClose: onClosePlantCardModal } = useDisclosure();
   const toast = useToast();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const handleDisplayPlantModal = (plant: IPlantModel) => {
     onOpenPlantCardModal();
@@ -50,23 +53,28 @@ const FavoritesPage = () => {
 
   return (
     <>
-      <Heading>Favorites</Heading>
-      {userFavorites.length === 0 && <Text>No plants saved yet.</Text>}
-      {userFavorites.length > 0 &&
-        userFavorites.map((plant: IPlantModel) => (
-          <Box key={plant._id}>
-            <HStack>
-              <HStack onClick={() => handleDisplayPlantModal(plant)}>
-                <Image boxSize='50px' src={plant.imageUrl} fallbackSrc='https://via.placeholder.com/50' alt={plant.name} />
-                <VStack>
-                  <Text>{plant.name}</Text>
-                  <Text>{plant.latinName}</Text>
-                </VStack>
+      <Box className='favoritesTop'></Box>
+      <Box className={`favoritesWrapper ${isMobile ? 'favoritesMobile' : 'favoritesDesktop'}`}>
+        <Heading>Favorites</Heading>
+        {userFavorites.length === 0 && <Text>No plants saved yet.</Text>}
+        {userFavorites.length > 0 &&
+          userFavorites.map((plant: IPlantModel) => (
+            <Box key={plant._id} className='plantContainer'>
+              <HStack className='onePlant' onClick={() => handleDisplayPlantModal(plant)}>
+                <HStack>
+                  <Image src={plant.imageUrl} alt={plant.name} />
+                  <VStack className='nameWrapper'>
+                    <Text className='name'>{plant.name}</Text>
+                    <Text className='latinName'>{plant.latinName}</Text>
+                  </VStack>
+                </HStack>
               </HStack>
-              <Button onClick={() => handleRemove(plant)}>-</Button>
-            </HStack>
-          </Box>
-        ))}
+              <Button className='deleteBtn' onClick={() => handleRemove(plant)}>
+                <MdDelete />
+              </Button>
+            </Box>
+          ))}
+      </Box>
       {selectedPlantToRemove && (
         <ConfirmModal
           message={`Do you want to remove ${selectedPlantToRemove.name} from favorites?`}
@@ -81,5 +89,4 @@ const FavoritesPage = () => {
     </>
   );
 };
-
 export default FavoritesPage;

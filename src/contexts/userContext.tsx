@@ -37,7 +37,10 @@ function UserContextProvider({ children }: Props) {
     localStorage.removeItem('plant');
   };
 
-  const isPlantInFavorites = (plantId: string): boolean => {
+  const isPlantInFavorites = (plantId: string | undefined): boolean => {
+    if (!plantId) {
+      return false;
+    }
     const allPlantIdsInUserFavorites = currentUser?.favorites.map((item) => item._id);
     return allPlantIdsInUserFavorites?.includes(plantId) ? true : false;
   };
