@@ -1,0 +1,172 @@
+@import '../../_utils';
+
+.plantCardTop {
+    width: 100%;
+    height: 20vh;
+    margin-bottom: rem(20px);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    background-image: url($plant-card-bg);
+    background-color: $green-light;
+    background-size: cover;
+    background-position: center;
+}
+
+.wrapperDesktop {
+    margin: auto;
+    margin-top: rem(-90px);
+    position: relative;
+    width: 80%;
+    max-width: rem(900px);
+    margin-top: rem(-90px);
+    padding: rem(40px);
+    background-color: $white;
+    border-radius: rem(16px);
+    box-shadow: 0px rem(4px) rem(8px) $gray-10;
+
+    img {
+        width: 80%;
+        max-width: rem(400px);
+        height: auto;
+        object-fit: cover;
+        border-radius: rem(10px);
+        box-shadow: 0px rem(4px) rem(8px) $gray-10;
+        margin-bottom: rem(20px);
+    }
+
+    .name {
+        font-family: $mono;
+    }
+
+    .latinName {
+        font-family: $mono;
+        font-style: italic;
+        font-size: rem(18px);
+        font-weight: 400;
+        margin-bottom: rem(20px);
+        margin-left: rem(120px);
+    }
+
+    .nameHeartWrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: rem(10px);
+    }
+
+    .heartSymbol {
+        margin-bottom: rem(20px);
+        margin-left: rem(50px);
+        button {
+            background-color: $white;
+        }
+        svg {
+            font-size: 22px;
+        }
+    }
+
+    .description {
+        max-width: rem(800px);
+        text-align: left;
+        margin-bottom: rem(30px);
+    }
+
+
+    .sunWaterWrapper {
+        width: 100%;
+        max-width: rem(800px);
+        margin-bottom: rem(10px);
+        text-align: left;
+        
+        svg {
+            margin-right: rem(10px);
+            font-size: 18px;
+        }
+    }    
+}
+
+.shareButton {
+    margin-top: rem(20px);
+    padding: rem(5px) rem(25px);
+    background-color: $white;
+    border: 2px solid $black;
+    color: $black;
+    border-radius: 10px;
+    
+    button {
+        font-weight: 600;
+    }
+}
+
+.shareButton:hover {
+    background-color: $green-light;
+    border: 2px solid $green-light;
+    color: $white;
+}
+
+.wrapperMobile {
+    margin: auto;
+    width: 100%;
+    padding: rem(20px);
+    margin-top: rem(10px);
+    gap: rem(5px);
+
+    img {
+        margin-top: rem(5px);
+        width: 80%;
+        height: auto;
+        object-fit: cover;
+        border-radius: rem(10px);
+        box-shadow: 0px rem(4px) rem(8px) $gray-10;
+        margin-bottom: rem(30px);
+    }
+
+    .name {
+        font-size: rem(20px);
+        font-family: $mono;
+    }
+
+    .latinName {
+        font-family: $mono;
+        font-style: italic;
+        font-size: rem(16px);
+        font-weight: 400;
+        margin-bottom: rem(10px);
+        margin-left: rem(20px);
+    }
+
+    .nameHeartWrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: rem(10px);
+    }
+
+    .description {
+        width: 95%;
+        text-align: left;
+        margin-bottom: rem(20px);
+    }
+
+    .heartSymbol {
+        margin-bottom: rem(10px);
+        margin-left: rem(30px);
+        button {
+            background-color: $offWhite;
+        }
+        svg {
+            font-size: 18px;
+        }
+    }
+
+    .sunWaterWrapper {
+        width: 95%;
+        max-width: rem(800px);
+        margin-bottom: rem(10px);
+        text-align: left;
+        
+        svg {
+            margin-right: rem(10px);
+            font-size: 18px;
+        }
+    }
+}
