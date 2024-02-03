@@ -1,9 +1,10 @@
-import { Heading, Text, VStack, FormControl, FormLabel, Input, FormErrorMessage, Button, useToast, Link as ChakraLink } from '@chakra-ui/react';
+import { Heading, Text, VStack, FormControl, FormLabel, Input, FormErrorMessage, Button, useToast, Link as ChakraLink, Box, Avatar } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, Link as ReactRouterLink } from 'react-router-dom';
-import { IUserContext, UserContext } from '../contexts/userContext';
+import { IUserContext, UserContext } from '../../contexts/userContext';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { updateUser } from '../services/user.services';
+import { updateUser } from '../../services/user.services';
+import './EditProfilePage.scss';
 
 interface IEditUserData {
   email: string;
@@ -69,9 +70,12 @@ const EditProfilePage = () => {
   };
 
   return (
-    <>
-      <VStack>
+    <Box className='editProfilePageWrapper'>
+      <Box className='editProfileTop'></Box>
+
+      <VStack className='editProfileWrapper'>
         <Heading>Edit Profile</Heading>
+        <Avatar className='avatar' />
         <Text color='red'>{serverErrorMessage}</Text>
         {currentUser && (
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -127,19 +131,21 @@ const EditProfilePage = () => {
               <FormErrorMessage>{errors.repeatPassword && errors.repeatPassword.message}</FormErrorMessage>
             </FormControl>
 
-            <Button mt={4} mr={4}>
-              <ChakraLink as={ReactRouterLink} to='/profile'>
-                Cancel
-              </ChakraLink>
-            </Button>
+            <Box className='buttonsWrapper'>
+              <Button>
+                <ChakraLink as={ReactRouterLink} to='/profile' className='profileEditCancelBtn'>
+                  Cancel
+                </ChakraLink>
+              </Button>
 
-            <Button mt={4} colorScheme='teal' type='submit' isLoading={isSubmitting}>
-              Save
-            </Button>
+              <Button type='submit' isLoading={isSubmitting} className='profileEditSaveBtn'>
+                Save
+              </Button>
+            </Box>
           </form>
         )}
       </VStack>
-    </>
+    </Box>
   );
 };
 
