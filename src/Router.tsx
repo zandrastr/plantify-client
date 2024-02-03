@@ -5,12 +5,12 @@ import HomePage from './pages/HomePage/HomePage';
 import PrivateRoute from './components/PrivateRoute';
 const SignupPage = lazy(() => import('./pages/SignupPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
-const ErrorPage = lazy(() => import('./pages/ErrorPage'));
-const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const EditProfilePage = lazy(() => import('./pages/EditProfilePage'));
-const PlantCardPage = lazy(() => import('./pages/PlantCardPage'));
-const FavoritesPage = lazy(() => import('./pages/FavoritesPage'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const EditProfilePage = lazy(() => import('./pages/EditProfilePage/EditProfilePage'));
+const PlantCardPage = lazy(() => import('./pages/PlantCardPage/PlantCardPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 
 export const router = createBrowserRouter([
   {
