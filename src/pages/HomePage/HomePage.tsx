@@ -15,10 +15,11 @@ const HomePage = () => {
   const [plantNotFoundMessage, setPlantNotFoundMessage] = useState('');
   const navigate = useNavigate();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     register,
   } = useForm<IPlantSearch>();
 
@@ -27,6 +28,7 @@ const HomePage = () => {
   }, []);
 
   const onSubmit: SubmitHandler<IPlantSearch> = async ({ plantName }) => {
+    setIsLoading(true);
     setServerErrorMessage('');
     try {
       const plantInfoResult = await getPlantInfo(plantName);
@@ -43,6 +45,8 @@ const HomePage = () => {
       console.error('Error submitting plant search data:', error);
       const errorMessage = error.response.data.message;
       setServerErrorMessage(errorMessage || 'An error occurred');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +76,7 @@ const HomePage = () => {
               <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
             </FormControl>
 
-            <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
+            <Button colorScheme='green' type='submit' isLoading={isLoading}>
               Search
             </Button>
           </form>
@@ -111,7 +115,7 @@ const HomePage = () => {
                   <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
                 </FormControl>
 
-                <Button colorScheme='green' type='submit' isLoading={isSubmitting}>
+                <Button colorScheme='green' type='submit' isLoading={isLoading}>
                   Search
                 </Button>
               </form>
