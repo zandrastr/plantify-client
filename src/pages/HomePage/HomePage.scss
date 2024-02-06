@@ -1,79 +1,52 @@
 @import '../../_utils';
 
-// ************************ Mobile ************************
+.sloganContainer {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  background-image: url($home-bg);
+  background-size: cover;
+  background-position: center;
+}
+
+.sloganText { 
+  font-family: $mono; 
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: $white; 
+  font-weight: bold;
+}
+
+.attentionText {
+  color: $red;
+}
+
 .mobileWrapper {
   width: 100%;
 
   .sloganContainer {
-    width: 100%;
     height: 20vh;
     margin-bottom: rem(20px);
-    display: flex;
-    overflow: hidden;
-    position: relative;
-    background-image: url('/bg-startpage.jpg');
-    background-size: cover;
-    background-position: center;
   }
 
   .sloganText {
-    font-family: $mono; 
-    position: absolute;
     top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: $white; 
-    font-weight: bold;
     width: 70%;
-  }
-
-  form {
-    margin-top: rem(50px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }  
-
-  .formInput {
-    width: rem(300px);
-    border: 2px solid $black;
-    border-radius: rem(8px);
-    padding: rem(10px);
-  }
-
-  button {
-    margin-top: rem(20px);
-    padding-left: rem(24px);
-    padding-right: rem(24px);
-    background-color: $black;
   }
 }
 
-// ************************ Desktop ************************
 .desktopWrapper {
   height: 100%;
 
   .sloganContainer {
-    width: 100%;
     height: 40vh;
-    display: flex;
-    overflow: hidden;
-    position: relative;
-    background-image: url('/bg-startpage.jpg');
-    background-size: cover;
-    background-position: center;
   }
 
   .sloganText {
-    font-family: $mono;
-    position: absolute;
     top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: $white; 
-    font-weight: bold;
     width: 50%;
   }
   
@@ -90,13 +63,7 @@
     background-color: $white;
     border-radius: rem(16px);
     box-shadow: 0px rem(4px) rem(8px) $gray-10;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }  
+  } 
 
   .headingWrapper {
     margin-bottom: rem(20px);
@@ -110,23 +77,4 @@
     font-family: $mono;
     margin-top: rem(2px);
   }
-
-  .formInput {
-    width: rem(400px);
-    border: 2px solid $black;
-    border-radius: rem(8px);
-    padding: rem(10px);
-  }
-
-  button {
-    margin-top: rem(20px);
-    padding-left: rem(40px);
-    padding-right: rem(40px);
-    background-color: $black;
-  }
 }
-
-.attentionText {
-  color: $red;
-} 
-

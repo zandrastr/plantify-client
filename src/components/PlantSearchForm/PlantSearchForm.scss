@@ -1,0 +1,57 @@
+@import '../../_utils';
+
+.form {
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }  
+      
+    .formInput:focus {
+        border-color: $green-light;
+        box-shadow: 0 0 0 1px $green-light;
+    }
+      
+    .submitButton {
+        background-color: $black;
+        color: $white;
+    }
+      
+    .submitButton:hover {
+        background-color: $green-light;
+    }
+}
+
+.formMobile {
+    form {
+        margin-top: rem(50px);
+    }  
+    
+    .formInput {
+        width: rem(300px);
+        border: 2px solid $black;
+        border-radius: rem(8px);
+        padding: rem(10px);
+    }
+    
+    button {
+        margin-top: rem(20px);
+        padding-left: rem(24px);
+        padding-right: rem(24px);
+    }
+}
+
+.formDesktop {
+    .formInput {
+        width: rem(400px);
+        border: 2px solid $black;
+        border-radius: rem(8px);
+        padding: rem(10px);
+    }
+    
+    button {
+        margin-top: rem(30px);
+        padding-left: rem(40px);
+        padding-right: rem(40px);
+    }
+}
