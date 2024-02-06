@@ -1,5 +1,6 @@
 import { RWebShare } from 'react-web-share';
-import { formatLatinNameDb } from '../utils/app.utils';
+import { formatLatinNameDb } from '../../utils/app.utils';
+import './WebShare.scss';
 
 interface WebShareProps {
   name: string;

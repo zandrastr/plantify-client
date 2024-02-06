@@ -1,0 +1,21 @@
+@import '../../_utils';
+
+.rws-container {
+    header {
+        font-family: $mono;
+    }
+}
+
+.rws-icon {
+    border-radius: 300px;
+    opacity: .8;
+}
+
+.rws-icon:hover {
+    border-radius: 300px;
+    opacity: 1;
+}
+
+.rws-close {
+    font-weight: 600;
+}
