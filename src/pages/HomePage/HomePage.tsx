@@ -1,11 +1,11 @@
-import { FormControl, FormErrorMessage, Heading, Input, Text, VStack, Button, useBreakpointValue, Box, HStack } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { Heading, Text, VStack, useBreakpointValue, Box, HStack } from '@chakra-ui/react';
+import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getPlantImage, getPlantInfo } from '../../services/plant.services';
 import { PiPottedPlant } from 'react-icons/pi';
+import PlantSearchForm from '../../components/PlantSearchForm/PlantSearchForm';
 import './HomePage.scss';
-
 export interface IPlantSearch {
   plantName: string;
 }
@@ -16,12 +16,6 @@ const HomePage = () => {
   const navigate = useNavigate();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-  } = useForm<IPlantSearch>();
 
   useEffect(() => {
     localStorage.removeItem('plant');
@@ -63,23 +57,9 @@ const HomePage = () => {
           {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
           {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <FormControl isInvalid={errors.plantName !== undefined}>
-              <Input
-                className='formInput'
-                placeholder='🔍 Plant name...'
-                aria-label='Plant name'
-                {...register('plantName', {
-                  required: 'Plant name is required',
-                })}
-              />
-              <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
-            </FormControl>
-
-            <Button colorScheme='green' type='submit' isLoading={isLoading}>
-              Search
-            </Button>
-          </form>
+          <Box className='form formMobile'>
+            <PlantSearchForm onSubmit={onSubmit} isLoading={isLoading} />
+          </Box>
         </VStack>
       )}
 
@@ -99,26 +79,13 @@ const HomePage = () => {
                   Plantify
                 </Heading>
               </HStack>
+
               {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
               {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
 
-              <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <FormControl isInvalid={errors.plantName !== undefined}>
-                  <Input
-                    className='formInput'
-                    placeholder='🔍 Plant name...'
-                    aria-label='Plant name'
-                    {...register('plantName', {
-                      required: 'Plant name is required',
-                    })}
-                  />
-                  <FormErrorMessage>{errors.plantName && errors.plantName.message}</FormErrorMessage>
-                </FormControl>
-
-                <Button colorScheme='green' type='submit' isLoading={isLoading}>
-                  Search
-                </Button>
-              </form>
+              <Box className='form formDesktop'>
+                <PlantSearchForm onSubmit={onSubmit} isLoading={isLoading} />
+              </Box>
             </VStack>
           </Box>
         </VStack>
