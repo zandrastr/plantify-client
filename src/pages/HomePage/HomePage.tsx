@@ -28,7 +28,7 @@ const HomePage = () => {
       const plantInfoResult = await getPlantInfo(plantName);
 
       if (plantInfoResult.latinName.toLowerCase() === 'plantundefined') {
-        setPlantNotFoundMessage('Plant not found.');
+        setPlantNotFoundMessage('Plant not found');
         return;
       }
       const plantImageResult = await getPlantImage(plantName);
