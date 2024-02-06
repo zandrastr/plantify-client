@@ -1,0 +1,79 @@
+@import '../../_utils';
+
+.loginPageWrapper {
+    margin-bottom: rem(20px);
+}
+
+.loginTop {
+    width: 100%;
+    height: 20vh;
+    margin-bottom: rem(20px);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    background-image: url($login-bg);
+    background-color: $green-light;
+    background-size: cover;
+    background-position: center;
+}
+
+.loginFormWrapper {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    max-width: rem(900px);
+    margin-top: rem(-90px);
+    padding: rem(20px);
+    background-color: $white;
+    border-radius: rem(16px);
+    box-shadow: 0px rem(4px) rem(8px) $gray-10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $mono;
+    
+    .errorMessage {
+        color: $red;
+    }
+
+    h2 {
+        font-family: $mono;
+        margin-top: rem(20px);
+        margin-bottom: rem(40px);
+    }
+    
+    p {
+        max-width: rem(700px);
+    }
+
+    div {
+        margin-bottom: rem(18px);
+    }
+
+    input:focus {
+        border: none;
+        box-shadow: 0 0 0 2px $black;
+    }
+}
+
+.buttonWrapper {
+    margin-top: rem(30px);
+    margin-bottom: rem(40px);
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    width: 40%;
+    background: $black;
+    color: $white
+}
+
+.loginButton:hover {
+    background: $green-light;
+    color: $white
+}
+
+.signupLink {
+    text-decoration: underline;
+}
