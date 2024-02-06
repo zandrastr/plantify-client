@@ -1,5 +1,6 @@
-import { Box, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
 import './AboutPage.scss';
+import { PiPottedPlant } from 'react-icons/pi';
 
 const AboutPage = () => {
   return (
@@ -7,6 +8,9 @@ const AboutPage = () => {
       <Box className='aboutTop'></Box>
       <VStack className='aboutWrapper'>
         <Heading>About</Heading>
+
+        <PiPottedPlant className='aboutLogo' />
+
         <Text>
           Welcome to Plantify, Your Green Oasis in the Digital World! Believe in the transformative power of plants, whether you're a seasoned plant parent or just discovering your green thumb. This
           app is designed to be your ultimate companion on your botanical journey, where the wonders of nature meet cutting-edge technology, creating a seamless and enriching experience for plant

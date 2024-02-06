@@ -1,6 +1,6 @@
 import { Button, Heading, Image, Text, VStack, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, HStack } from '@chakra-ui/react';
 import { IPlantModel } from '../../models/plant.model';
-import WebShare from '../WebShare';
+import WebShare from '../WebShare/WebShare';
 import './PlantCardModal.scss';
 import { FaDroplet, FaSun } from 'react-icons/fa6';
 

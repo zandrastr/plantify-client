@@ -98,8 +98,9 @@
     }
     
     img {
-        width: rem(60px);
-        height: rem(60px);
+        max-width: rem(60px);
+        max-height: rem(60px);
+        object-fit: cover;
     }
 
     .nameWrapper {

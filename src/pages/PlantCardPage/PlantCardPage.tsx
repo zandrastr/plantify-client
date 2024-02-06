@@ -5,8 +5,8 @@ import { IUserContext, UserContext } from '../../contexts/userContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getPlant, savePlant, savePlantOnShare } from '../../services/plant.services';
 import { addPlant, removePlant } from '../../services/user.services';
-import ConfirmModal from '../../components/ConfirmModal';
-import WebShare from '../../components/WebShare';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
+import WebShare from '../../components/WebShare/WebShare';
 import './PlantCardPage.scss';
 import { FaDroplet, FaSun, FaRegHeart, FaHeart } from 'react-icons/fa6';
 

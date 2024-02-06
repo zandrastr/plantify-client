@@ -1,4 +1,5 @@
 import { Button, Text, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody } from '@chakra-ui/react';
+import './ConfirmModal.scss';
 
 interface ConfirmModalProps {
   message: string;
@@ -13,16 +14,18 @@ const ConfirmModal = ({ message, buttonText, isOpen, onClose, mainFunction }: Co
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent className='confirmModalWrapper'>
         <ModalBody>
-          <Text>{message}</Text>
+          <Text className='modalText'>{message}</Text>
         </ModalBody>
 
         <ModalFooter>
-          <Button mr={3} onClick={onClose}>
+          <Button onClick={onClose} className='modalCancelButton'>
             Cancel
           </Button>
-          <Button onClick={mainFunction}>{buttonText}</Button>
+          <Button onClick={mainFunction} className='modalActionButton'>
+            {buttonText}
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

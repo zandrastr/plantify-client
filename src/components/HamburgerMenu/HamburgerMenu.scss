@@ -4,4 +4,12 @@
     svg {
         margin-right: rem(8px);
     }
+
+    a {
+        padding: rem(10px) rem(20px);
+    }
+
+    a:focus {
+        background-color: $green-light;
+    }
 }

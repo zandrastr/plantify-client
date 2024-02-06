@@ -1,0 +1,27 @@
+@import '../../_utils';
+
+.confirmModalWrapper {
+    padding: rem(20px) rem(40px);
+    font-family: $mono;
+    font-weight: 600;
+    text-align: center;
+
+    .modalActionButton { 
+        background-color: $green-light;
+        border: 2px solid $green-light;
+        color: $white;
+    }
+
+    .modalActionButton:hover {
+        background-color: $green;
+        border: 2px solid $green;
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        gap: rem(20px);
+        padding: 0;
+        margin-top: rem(15px);
+    }
+}

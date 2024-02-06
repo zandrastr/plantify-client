@@ -63,6 +63,9 @@
         svg {
             font-size: 22px;
         }
+        svg:focus {
+            outline: none;
+        }
     }
 
     .description {
@@ -87,13 +90,13 @@
 
 .shareButton {
     margin-top: rem(20px);
-    padding: rem(5px) rem(25px);
     background-color: $white;
     border: 2px solid $black;
     color: $black;
     border-radius: 10px;
     
     button {
+        padding: rem(5px) rem(25px);
         font-weight: 600;
     }
 }

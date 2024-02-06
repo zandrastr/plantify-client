@@ -3,7 +3,7 @@ import { IPlantModel } from '../../models/plant.model';
 import { useContext, useState } from 'react';
 import { IUserContext, UserContext } from '../../contexts/userContext';
 import { removePlant } from '../../services/user.services';
-import ConfirmModal from '../../components/ConfirmModal';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import PlantCardModal from '../../components/PlantCardModal/PlantCardModal';
 import { MdDelete } from 'react-icons/md';
 import './FavoritesPage.scss';
