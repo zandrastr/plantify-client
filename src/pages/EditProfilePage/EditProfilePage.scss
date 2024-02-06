@@ -5,6 +5,10 @@
     background-color: $green-light;
 }
 
+.errorMessage {
+    color: $red;
+}
+
 .editProfilePageWrapper {
     margin-bottom: rem(20px);
 }
@@ -20,15 +24,6 @@
     background-color: $green-light;
     background-size: cover;
     background-position: center;
-}
-
-.editProfileName {
-    font-weight: 600;
-    font-size: rem(24px);
-}
-
-.editProfileTextWrapper {
-    margin-bottom: rem(40px);
 }
 
 .buttonsWrapper {

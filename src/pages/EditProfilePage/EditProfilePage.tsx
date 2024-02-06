@@ -76,7 +76,7 @@ const EditProfilePage = () => {
       <VStack className='editProfileWrapper'>
         <Heading>Edit Profile</Heading>
         <Avatar className='avatar' />
-        <Text color='red'>{serverErrorMessage}</Text>
+        <Text className='errorMessage'>{serverErrorMessage}</Text>
         {currentUser && (
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FormControl isInvalid={errors.name !== undefined}>

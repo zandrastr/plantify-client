@@ -5,11 +5,10 @@
   max-height: 100%;
 }
 
-body {
-  height: calc(100vh - 40px);
-  background: rgb(249, 249, 249) !important;
-}
-
 * {
   box-sizing: border-box;
+}
+
+body {
+  background: rgb(249, 249, 249) !important;
 }
