@@ -1,6 +1,7 @@
 import { RWebShare } from 'react-web-share';
 import { formatLatinNameDb } from '../../utils/app.utils';
 import './WebShare.scss';
+import { CLIENT_URL } from '../../utils/app.constants';
 
 interface WebShareProps {
   name: string;
@@ -12,11 +13,10 @@ const WebShare = ({ name, latinName }: WebShareProps) => {
     <RWebShare
       data={{
         text: 'Plantify',
-        url: `http://localhost:5173/plant/${formatLatinNameDb(latinName)}`,
+        url: `${CLIENT_URL}${formatLatinNameDb(latinName)}`,
         title: `Share - ${name}`,
       }}
       sites={['facebook', 'whatsapp', 'mail', 'copy']}
-      disableNative={true} //Disable browsers native share functionality
     >
       <button>Share</button>
     </RWebShare>

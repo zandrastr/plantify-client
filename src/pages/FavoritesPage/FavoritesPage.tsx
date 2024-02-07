@@ -7,6 +7,7 @@ import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import PlantCardModal from '../../components/PlantCardModal/PlantCardModal';
 import { MdDelete } from 'react-icons/md';
 import './FavoritesPage.scss';
+import { formatLatinNameDisplay } from '../../utils/app.utils';
 
 const FavoritesPage = () => {
   const { currentUser, removeFromFavorites } = useContext(UserContext) as IUserContext;
@@ -65,7 +66,7 @@ const FavoritesPage = () => {
                   <Image src={plant.imageUrl} alt={plant.name} />
                   <VStack className='nameWrapper'>
                     <Text className='name'>{plant.name}</Text>
-                    <Text className='latinName'>{plant.latinName}</Text>
+                    <Text className='latinName'>{formatLatinNameDisplay(plant.latinName)}</Text>
                   </VStack>
                 </HStack>
               </HStack>

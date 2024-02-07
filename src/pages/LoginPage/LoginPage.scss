@@ -66,12 +66,30 @@
 .loginButton {
     width: 40%;
     background: $black;
-    color: $white
+    color: $white;
+
+    &:not(:disabled):hover {
+        background-color: $green-light;
+        color: $white;
+    }
+
+    &:disabled {
+        border: 2px solid $black;
+        opacity: 1;
+        color: $black;
+        background-color: $white;
+    }
+
+    &:disabled:hover {
+        border: 2px solid $black;
+        opacity: .8;
+        color: $black;
+    }
 }
 
-.loginButton:hover {
-    background: $green-light;
-    color: $white
+.chakra-button__spinner, .chakra-spinner { 
+    color: $black;
+    margin: 0 !important;
 }
 
 .signupLink {

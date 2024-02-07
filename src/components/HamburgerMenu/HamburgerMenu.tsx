@@ -9,13 +9,13 @@ import { CgProfile } from 'react-icons/cg';
 import './HamburgerMenu.scss';
 
 export const HamburgerMenu = () => {
-  const { isLoggedIn } = useContext(UserContext) as IUserContext;
+  const { isLoggedIn, logout } = useContext(UserContext) as IUserContext;
 
   return (
     <>
       {isLoggedIn && (
         <Menu>
-          <MenuButton as={IconButton} aria-label='Options' icon={<HamburgerIcon />} variant='outline' />
+          <MenuButton as={IconButton} aria-label='Options' icon={<HamburgerIcon />} className='menuButton' />
           <VStack className='hamburgerMenu'>
             <MenuList>
               <MenuItem as={ReactRouterLink} to='/'>
@@ -34,7 +34,7 @@ export const HamburgerMenu = () => {
                 <Icon as={GoInfo} /> About
               </MenuItem>
 
-              <MenuItem as={ReactRouterLink} to='/login'>
+              <MenuItem as={ReactRouterLink} to='/' onClick={logout}>
                 <Icon as={FiLogOut} /> Logout
               </MenuItem>
             </MenuList>
@@ -44,7 +44,7 @@ export const HamburgerMenu = () => {
 
       {!isLoggedIn && (
         <Menu>
-          <MenuButton as={IconButton} aria-label='Options' icon={<HamburgerIcon />} variant='outline' />
+          <MenuButton as={IconButton} aria-label='Options' icon={<HamburgerIcon />} className='menuButton' />
           <VStack className='hamburgerMenu'>
             <MenuList>
               <MenuItem as={ReactRouterLink} to='/'>

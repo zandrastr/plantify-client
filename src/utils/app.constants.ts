@@ -1,0 +1,1 @@
+export const CLIENT_URL = 'https://plantify-omega.vercel.app/'
