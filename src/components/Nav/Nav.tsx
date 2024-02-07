@@ -1,4 +1,4 @@
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { Link as ChakraLink, HStack, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { IUserContext, UserContext } from '../../contexts/userContext';
@@ -9,10 +9,15 @@ import './Nav.scss';
 export const Nav = () => {
   const { logout, isLoggedIn } = useContext(UserContext) as IUserContext;
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/');
+  };
 
   return (
     <HStack className='navWrapper' mt={[2, 2, 10]} mb={[2, 2, 10]}>
-      <HStack className='logoWrapper'>
+      <HStack className='logoWrapper' onClick={handleClick} as='button' aria-label='Plantify logo redirecting to homepage'>
         <PiPottedPlant />
         <Text>Plantify</Text>
       </HStack>

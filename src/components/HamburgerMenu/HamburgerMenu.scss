@@ -10,6 +10,15 @@
     }
 
     a:focus {
-        background-color: $green-light;
+        background-color: $mint;
+    }
+}
+
+.menuButton {
+    background: $transparent !important;
+
+    svg {
+        color: $black;
+        font-size: rem(24px);
     }
 }

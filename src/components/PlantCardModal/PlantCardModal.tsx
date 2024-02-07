@@ -3,6 +3,7 @@ import { IPlantModel } from '../../models/plant.model';
 import WebShare from '../WebShare/WebShare';
 import './PlantCardModal.scss';
 import { FaDroplet, FaSun } from 'react-icons/fa6';
+import { formatLatinNameDisplay } from '../../utils/app.utils';
 
 interface PlantCardModalProps {
   selectedPlant: IPlantModel;
@@ -21,7 +22,7 @@ const PlantCardModal = ({ selectedPlant, isOpen, onClose }: PlantCardModalProps)
           <VStack>
             <Image className='modalImg' src={selectedPlant.imageUrl} alt={selectedPlant.name} />
             <Heading className='modalName'>{selectedPlant.name}</Heading>
-            <Heading className='modalLatinName'>{selectedPlant.latinName}</Heading>
+            <Heading className='modalLatinName'>{formatLatinNameDisplay(selectedPlant.latinName)}</Heading>
             <Text className='modalDescription'>{selectedPlant.description}</Text>
             <HStack className='modalSunWaterWrapper'>
               <FaDroplet aria-label='Care instructions, water' />

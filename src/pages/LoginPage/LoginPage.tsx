@@ -86,7 +86,7 @@ const LoginPage = () => {
             <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
           </FormControl>
           <Box className='buttonWrapper'>
-            <Button className='loginButton' mt={4} colorScheme='teal' type='submit' isLoading={isSubmitting}>
+            <Button className='loginButton' type='submit' isLoading={isSubmitting}>
               Login
             </Button>
           </Box>

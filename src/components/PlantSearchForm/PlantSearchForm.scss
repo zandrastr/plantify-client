@@ -13,32 +13,49 @@
     }
       
     .submitButton {
-        background-color: $black;
+        background: $black;
         color: $white;
+        
+        &:not(:disabled):hover {
+            background-color: $green-light;
+            color: $white;
+        }
+
+        &:disabled {
+            border: 2px solid $black;
+            opacity: 1;
+            color: $black;
+            background-color: $white;
+        }
+
+        &:disabled:hover {
+            border: 2px solid $black;
+            opacity: .8;
+            color: $black;
+        }
     }
-      
-    .submitButton:hover {
-        background-color: $green-light;
+
+    .chakra-button__spinner, .chakra-spinner {
+        color: $black;
     }
 }
 
 .formMobile {
-    form {
-        margin-top: rem(50px);
-    }  
-    
     .formInput {
         width: rem(300px);
         border: 2px solid $black;
         border-radius: rem(8px);
         padding: rem(10px);
+        font-size: rem(18px);
+
     }
     
     button {
         margin-top: rem(20px);
-        padding-left: rem(24px);
-        padding-right: rem(24px);
+        width: 80%;
+        font-size: rem(18px);
     }
+
 }
 
 .formDesktop {
@@ -51,7 +68,7 @@
     
     button {
         margin-top: rem(30px);
-        padding-left: rem(40px);
-        padding-right: rem(40px);
+        width: 60%;
     }
 }
+

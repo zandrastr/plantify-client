@@ -20,6 +20,7 @@ const AboutPage = () => {
           Not just a search engine powered by AI, Plantify serves as your passport to the botanical universe. Explore a vast database of plants from all corners of the globe, each accompanied by
           interesting facts, care tips, and stunning visuals. Whether on the hunt for a new addition to your indoor jungle or curious about the flora in a distant land, Plantify has you covered.
         </Text>
+        <Text className='madeBy'> Made by Sandra - 2024</Text>
       </VStack>
     </>
   );

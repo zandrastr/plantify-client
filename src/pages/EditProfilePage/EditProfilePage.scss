@@ -38,12 +38,25 @@ justify-content: space-around;
 
 .profileEditSaveBtn {
     background: $black;
-    color: $white
-}
+    color: $white;
 
-.profileEditSaveBtn:hover {
-    background: $green-light;
-    color: $white
+    &:not(:disabled):hover {
+        background-color: $green-light;
+        color: $white;
+    }
+
+    &:disabled {
+        border: 2px solid $black;
+        opacity: 1;
+        color: $black;
+        background-color: $white;
+    }
+
+    &:disabled:hover {
+        border: 2px solid $black;
+        opacity: .8;
+        color: $black;
+    }
 }
 
 .editProfileWrapper {

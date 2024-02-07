@@ -49,16 +49,20 @@ const HomePage = () => {
       {isMobile && (
         <VStack className='mobileWrapper'>
           <Box className='sloganContainer'>
-            <Text className='sloganText' fontSize={['m', 'm', 'xl']}>
+            <Text className='sloganText' fontSize={['xl', 'xl', '2xl']}>
               Your AI-powered plant search engine & virtual plant library
             </Text>
           </Box>
 
-          {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
-          {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
+          <Box className='searchContainer'>
+            <VStack className='searchWrapper'>
+              {plantNotFoundMessage !== '' && <Text className='attentionText'>{plantNotFoundMessage}</Text>}
+              {serverErrorMessage !== '' && <Text className='attentionText'>{serverErrorMessage}</Text>}
 
-          <Box className='form formMobile'>
-            <PlantSearchForm onSubmit={onSubmit} isLoading={isLoading} />
+              <Box className='form formMobile'>
+                <PlantSearchForm onSubmit={onSubmit} isLoading={isLoading} />
+              </Box>
+            </VStack>
           </Box>
         </VStack>
       )}

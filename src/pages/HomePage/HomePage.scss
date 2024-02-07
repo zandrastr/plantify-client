@@ -27,8 +27,24 @@
 .mobileWrapper {
   width: 100%;
 
+  .searchContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .searchWrapper {
+    width: 90%;
+    margin-top: rem(-90px);
+    padding: rem(60px) rem(15px);
+    background-color: $white;
+    border-radius: rem(16px);
+    box-shadow: 0px rem(4px) rem(8px) $gray-10;
+  } 
+
   .sloganContainer {
-    height: 20vh;
+    height: 40vh;
     margin-bottom: rem(20px);
   }
 
