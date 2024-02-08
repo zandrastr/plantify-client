@@ -8,5 +8,13 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/tests/setup.ts',
-  }
-})
+  },
+  build: {
+    assetsInlineLimit: 0, 
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+});
