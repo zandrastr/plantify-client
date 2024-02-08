@@ -116,7 +116,7 @@
 
     img {
         margin-top: rem(5px);
-        width: 80%;
+        max-height: rem(200px);
         height: auto;
         object-fit: cover;
         border-radius: rem(10px);
@@ -172,4 +172,11 @@
             font-size: 18px;
         }
     }
+}
+
+.noPlantMessage {
+    margin-top: rem(50px);
+    font-family: $mono;
+    text-align: center;
+    font-size: rem(20px);
 }
