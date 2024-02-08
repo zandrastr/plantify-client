@@ -13,7 +13,7 @@ const WebShare = ({ name, latinName }: WebShareProps) => {
     <RWebShare
       data={{
         text: 'Plantify',
-        url: `${CLIENT_URL}${formatLatinNameDb(latinName)}`,
+        url: `${CLIENT_URL}plant/${formatLatinNameDb(latinName)}`,
         title: `Share - ${name}`,
       }}
       sites={['facebook', 'whatsapp', 'mail', 'copy']}

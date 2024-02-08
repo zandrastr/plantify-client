@@ -10,7 +10,7 @@
  
 .modalImg {
     width: 70%;
-    height: auto;
+    max-height: rem(200px);
     object-fit: cover;
     border-radius: rem(10px);
     box-shadow: 0 rem(4px) rem(8px) $gray-10;

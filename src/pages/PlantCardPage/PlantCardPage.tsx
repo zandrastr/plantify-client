@@ -9,6 +9,7 @@ import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import WebShare from '../../components/WebShare/WebShare';
 import './PlantCardPage.scss';
 import { FaDroplet, FaSun, FaRegHeart, FaHeart } from 'react-icons/fa6';
+import { formatLatinNameDisplay } from '../../utils/app.utils';
 
 const PlantCardPage = () => {
   const { currentUser, addToFavorites, removeFromFavorites, isLoggedIn, isPlantInFavorites } = useContext(UserContext) as IUserContext;
@@ -116,43 +117,47 @@ const PlantCardPage = () => {
   return (
     <>
       <Box className='plantCardTop'></Box>
-      <VStack className={`${isMobile ? 'wrapperMobile' : 'wrapperDesktop'}`}>
-        <Image src={plantInfo?.imageUrl} alt={plantInfo?.name} />
-        <Heading className='name'>{plantInfo?.name}</Heading>
+      {plantInfo ? (
+        <VStack className={`${isMobile ? 'wrapperMobile' : 'wrapperDesktop'}`}>
+          <Image src={plantInfo?.imageUrl} alt={plantInfo?.name} />
+          <Heading className='name'>{plantInfo?.name}</Heading>
 
-        <HStack>
-          <Box className='nameHeartWrapper'>
-            <Heading className='latinName'>{plantInfo?.latinName}</Heading>
+          <HStack>
+            <Box className='nameHeartWrapper'>
+              <Heading className='latinName'>{formatLatinNameDisplay(plantInfo?.latinName)}</Heading>
 
-            <Box className='heartSymbol'>
-              {isPlantInFavorites(foundPlantInDb?._id!) ? (
-                <Button onClick={removePlantFromFavorites}>
-                  <FaHeart aria-label='Remove plant from favorites' role='button' tabIndex={0} />
-                </Button>
-              ) : (
-                <Button onClick={addPlantToFavorites}>
-                  <FaRegHeart aria-label='Add plant to favorites' role='button' tabIndex={0} />
-                </Button>
-              )}
+              <Box className='heartSymbol'>
+                {isPlantInFavorites(foundPlantInDb?._id!) ? (
+                  <Button onClick={removePlantFromFavorites}>
+                    <FaHeart aria-label='Remove plant from favorites' role='button' tabIndex={0} />
+                  </Button>
+                ) : (
+                  <Button onClick={addPlantToFavorites}>
+                    <FaRegHeart aria-label='Add plant to favorites' role='button' tabIndex={0} />
+                  </Button>
+                )}
+              </Box>
             </Box>
+          </HStack>
+
+          <Text className='description'>{plantInfo?.description}</Text>
+
+          <HStack className='sunWaterWrapper'>
+            <FaDroplet aria-label='Care instructions, water' />
+            <Text className='facts'>{plantInfo?.waterNeeds}</Text>
+          </HStack>
+          <HStack className='sunWaterWrapper'>
+            <FaSun aria-label='Care instructions, sun' />
+            <Text className='facts'>{plantInfo?.sunNeeds}</Text>
+          </HStack>
+
+          <Box className='shareButton' onClick={handleShare}>
+            {plantInfo && <WebShare name={plantInfo.name} latinName={plantInfo.latinName} />}
           </Box>
-        </HStack>
-
-        <Text className='description'>{plantInfo?.description}</Text>
-
-        <HStack className='sunWaterWrapper'>
-          <FaDroplet aria-label='Care instructions, water' />
-          <Text className='facts'>{plantInfo?.waterNeeds}</Text>
-        </HStack>
-        <HStack className='sunWaterWrapper'>
-          <FaSun aria-label='Care instructions, sun' />
-          <Text className='facts'>{plantInfo?.sunNeeds}</Text>
-        </HStack>
-
-        <Box className='shareButton' onClick={handleShare}>
-          {plantInfo && <WebShare name={plantInfo.name} latinName={plantInfo.latinName} />}
-        </Box>
-      </VStack>
+        </VStack>
+      ) : (
+        <Text className='noPlantMessage'>No plant found</Text>
+      )}
 
       <ConfirmModal
         message={`Please login to save the plant`}
