@@ -1,4 +1,4 @@
-import { Button, Heading, Image, Text, VStack, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, HStack } from '@chakra-ui/react';
+import { Button, Heading, Image, Text, VStack, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, HStack, useBreakpointValue } from '@chakra-ui/react';
 import { IPlantModel } from '../../models/plant.model';
 import WebShare from '../WebShare/WebShare';
 import './PlantCardModal.scss';
@@ -13,6 +13,7 @@ interface PlantCardModalProps {
 }
 
 const PlantCardModal = ({ selectedPlant, isOpen, onClose }: PlantCardModalProps) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -20,7 +21,7 @@ const PlantCardModal = ({ selectedPlant, isOpen, onClose }: PlantCardModalProps)
         <ModalCloseButton />
         <ModalBody>
           <VStack>
-            <Image className='modalImg' src={selectedPlant.imageUrl} alt={selectedPlant.name} />
+            <Image className={`modalImg ${isMobile && 'modalImgMobile'}`} src={selectedPlant.imageUrl} alt={selectedPlant.name} />
             <Heading className='modalName'>{selectedPlant.name}</Heading>
             <Heading className='modalLatinName'>{formatLatinNameDisplay(selectedPlant.latinName)}</Heading>
             <Text className='modalDescription'>{selectedPlant.description}</Text>
