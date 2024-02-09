@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# Plantify 🌵
+## Your AI-powered plant search engine & virtual plant library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I created this web application as my final project during my studies at Medieinstitutet.   
+Powered by ChatGPT’s API, this is a user-friendly online tool for plant lovers, making it easy to discover and share plant information and care tips. Users who are not logged in can explore all about plants using the app as a search engine. On top of that, users logged in can build their virtual plant library by saving their favorite plants.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🔧 Tech stack: 
+- React
+- Typescript
+- Chakra UI
+- Sass
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### ⚙️ How to run the project:
+-	Clone the project
+-	Install dependencies: `npm install`
+-	Create an .env file (see the .env-EXAMPLE file)
+-	Run the project: `npm run dev` (make sure the server is running)
 
-- Configure the top-level `parserOptions` property like this:
+### 👀 See the project live: 
+👉 [Plantify](https://plantify-ai.netlify.app/)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 📷 Screenshot of Plantify startpage: 
+![Plantify](https://github.com/zandrastr/plantify-client/assets/95537845/28f619b2-c6d2-4960-b801-ebd0c4afb4cd)
