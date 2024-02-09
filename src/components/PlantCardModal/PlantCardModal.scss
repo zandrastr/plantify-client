@@ -9,9 +9,9 @@
 }
  
 .modalImg {
-    width: 70%;
-    max-height: rem(200px);
-    object-fit: cover;
+    max-width: 70%;
+    max-height: rem(400px);
+    object-fit: contain;
     border-radius: rem(10px);
     box-shadow: 0 rem(4px) rem(8px) $gray-10;
     margin-bottom: rem(30px);
@@ -69,4 +69,8 @@
     background-color: $green-light;
     border: 2px solid $green-light;
     color: $white;
+}
+
+.modalImgMobile {
+    max-height: rem(200px);
 }
