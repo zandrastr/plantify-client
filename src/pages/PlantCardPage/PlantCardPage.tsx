@@ -15,8 +15,10 @@ const PlantCardPage = () => {
   const { currentUser, addToFavorites, removeFromFavorites, isLoggedIn, isPlantInFavorites } = useContext(UserContext) as IUserContext;
   const [plantInfo, setPlantInfo] = useState<IPlantModel | null>(null);
   const [foundPlantInDb, setFoundPlantInDb] = useState<IPlantModel | null>(null);
-  const { isOpen: isConfirmModalOpen, onOpen: onOpenConfirmModal, onClose: onCloseConfirmModal } = useDisclosure();
+  const { isOpen: isConfirmModalOpen, onOpen: openConfirmModal, onClose: closeConfirmModal } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [isRedirecting, setIsRedirecting] = useState<boolean>(false);
+  const [isFirstRun, setIsFirstRun] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const { latinName } = useParams();
@@ -56,6 +58,23 @@ const PlantCardPage = () => {
     }
   }, [plantInfo]);
 
+  useEffect(() => {
+    if (isFirstRun) {
+      setIsFirstRun(false);
+    }
+
+    if (isRedirecting) {
+      openConfirmModal();
+      localStorage.setItem('plant', JSON.stringify(plantInfo));
+    }
+
+    return () => {
+      if (!isFirstRun && !isRedirecting) {
+        localStorage.removeItem('plant');
+      }
+    };
+  }, [isFirstRun, isRedirecting]);
+
   const checkIfPlantExists = async () => {
     if (plantInfo) {
       try {
@@ -71,8 +90,7 @@ const PlantCardPage = () => {
 
   const addPlantToFavorites = async () => {
     if (!isLoggedIn) {
-      onOpenConfirmModal();
-      return;
+      setIsRedirecting(true);
     }
 
     if (currentUser && plantInfo) {
@@ -99,8 +117,8 @@ const PlantCardPage = () => {
   const removePlantFromFavorites = async () => {
     if (currentUser && plantInfo) {
       try {
-        await removePlant(currentUser._id, plantInfo._id!);
-        removeFromFavorites(plantInfo._id!);
+        await removePlant(currentUser._id, plantInfo._id ? plantInfo._id : foundPlantInDb?._id!);
+        removeFromFavorites(plantInfo._id ? plantInfo._id : foundPlantInDb?._id!);
       } catch (error) {
         console.error('Something went wrong:', error);
       }
@@ -112,6 +130,15 @@ const PlantCardPage = () => {
       const { plant } = await savePlantOnShare(plantInfo);
       setFoundPlantInDb(plant);
     }
+  };
+
+  const handleRedirect = async () => {
+    navigate('/login');
+  };
+
+  const handleCloseModal = async () => {
+    setIsRedirecting(false);
+    closeConfirmModal();
   };
 
   return (
@@ -158,15 +185,7 @@ const PlantCardPage = () => {
       ) : (
         <Text className='noPlantMessage'>No plant found</Text>
       )}
-
-      <ConfirmModal
-        message={`Please login to save the plant`}
-        buttonText='Login'
-        isOpen={isConfirmModalOpen}
-        onClose={onCloseConfirmModal}
-        onOpen={onOpenConfirmModal}
-        mainFunction={() => navigate('/login')}
-      />
+      <ConfirmModal message={`Please login to save the plant`} buttonText='Login' isOpen={isConfirmModalOpen} onClose={handleCloseModal} mainFunction={handleRedirect} />
     </>
   );
 };
