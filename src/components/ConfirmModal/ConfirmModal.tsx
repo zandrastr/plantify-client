@@ -5,7 +5,6 @@ interface ConfirmModalProps {
   message: string;
   buttonText: string;
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
   mainFunction: () => void;
 }
