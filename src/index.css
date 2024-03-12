@@ -11,4 +11,5 @@
 
 body {
   background: rgb(249, 249, 249) !important;
+  height: calc(100vh - 40px);
 }
