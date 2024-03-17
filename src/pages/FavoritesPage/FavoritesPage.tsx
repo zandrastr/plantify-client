@@ -53,7 +53,7 @@ const FavoritesPage = () => {
   };
 
   return (
-    <>
+    <Box className='favoritesPageWrapper'>
       <Box className='favoritesTop'></Box>
       <Box className={`favoritesWrapper ${isMobile ? 'favoritesMobile' : 'favoritesDesktop'}`}>
         <Heading>Favorites</Heading>
@@ -87,7 +87,7 @@ const FavoritesPage = () => {
         />
       )}
       {selectedPlantToDisplay && <PlantCardModal selectedPlant={selectedPlantToDisplay} isOpen={isPlantCardModalOpen} onClose={onClosePlantCardModal} onOpen={onOpenPlantCardModal} />}
-    </>
+    </Box>
   );
 };
 export default FavoritesPage;
