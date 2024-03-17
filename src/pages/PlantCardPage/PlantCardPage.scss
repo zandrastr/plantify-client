@@ -1,5 +1,9 @@
 @import '../../_utils';
 
+.plantCardPageWrapper {
+    padding-bottom: rem(40px);
+}
+
 .plantCardTop {
     width: 100%;
     height: 20vh;
@@ -74,18 +78,17 @@
         margin-bottom: rem(30px);
     }
 
-
     .sunWaterWrapper {
         width: 100%;
         max-width: rem(800px);
         margin-bottom: rem(10px);
         text-align: left;
-        
+
         svg {
             margin-right: rem(10px);
             font-size: 18px;
         }
-    }    
+    }
 }
 
 .shareButton {
@@ -94,7 +97,7 @@
     border: 2px solid $black;
     color: $black;
     border-radius: 10px;
-    
+
     button {
         padding: rem(5px) rem(25px);
         font-weight: 600;
@@ -166,7 +169,7 @@
         max-width: rem(800px);
         margin-bottom: rem(10px);
         text-align: left;
-        
+
         svg {
             margin-right: rem(10px);
             font-size: 18px;

@@ -1,7 +1,7 @@
 @import '../../_utils';
 
 .signupPageWrapper {
-    margin-bottom: rem(20px);
+    padding-bottom: rem(40px);
 }
 
 .signupTop {
@@ -16,7 +16,6 @@
     background-size: cover;
     background-position: center;
 }
-
 .signupFormWrapper {
     position: relative;
     margin: auto;
@@ -31,7 +30,7 @@
     flex-direction: column;
     align-items: center;
     font-family: $mono;
-    
+
     .errorMessage {
         color: $red;
     }
@@ -41,7 +40,7 @@
         margin-top: rem(20px);
         margin-bottom: rem(40px);
     }
-    
+
     p {
         max-width: rem(700px);
     }
@@ -82,12 +81,13 @@
 
     &:disabled:hover {
         border: 2px solid $black;
-        opacity: .8;
+        opacity: 0.8;
         color: $black;
     }
 }
 
-.chakra-button__spinner, .chakra-spinner {
+.chakra-button__spinner,
+.chakra-spinner {
     color: $black;
     margin: 0 !important;
 }

@@ -142,7 +142,7 @@ const PlantCardPage = () => {
   };
 
   return (
-    <>
+    <Box className='plantCardPageWrapper'>
       <Box className='plantCardTop'></Box>
       {plantInfo ? (
         <VStack className={`${isMobile ? 'wrapperMobile' : 'wrapperDesktop'}`}>
@@ -186,7 +186,7 @@ const PlantCardPage = () => {
         <Text className='noPlantMessage'>No plant found</Text>
       )}
       <ConfirmModal message={`Please login to save the plant`} buttonText='Login' isOpen={isConfirmModalOpen} onClose={handleCloseModal} mainFunction={handleRedirect} />
-    </>
+    </Box>
   );
 };
 

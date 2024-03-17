@@ -11,6 +11,7 @@
 
 .editProfilePageWrapper {
     margin-bottom: rem(20px);
+    padding-bottom: rem(40px);
 }
 
 .editProfileTop {
@@ -27,13 +28,13 @@
 }
 
 .buttonsWrapper {
-margin-top: rem(10px);
-display: flex;
-justify-content: space-around;
+    margin-top: rem(10px);
+    display: flex;
+    justify-content: space-around;
 
- button {
-    width: 40%;
- }
+    button {
+        width: 40%;
+    }
 }
 
 .profileEditSaveBtn {
@@ -54,7 +55,7 @@ justify-content: space-around;
 
     &:disabled:hover {
         border: 2px solid $black;
-        opacity: .8;
+        opacity: 0.8;
         color: $black;
     }
 }
