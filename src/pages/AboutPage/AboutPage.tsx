@@ -1,28 +1,67 @@
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack, Badge, Link, HStack, useBreakpointValue } from '@chakra-ui/react';
 import './AboutPage.scss';
 import { PiPottedPlant } from 'react-icons/pi';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const AboutPage = () => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   return (
-    <>
-      <Box className='aboutTop'></Box>
-      <VStack className='aboutWrapper'>
-        <Heading>About</Heading>
+    <Box className='aboutPageWrapper'>
+      <VStack className='aboutSectionWrapper'>
+        <Box className='aboutTop'></Box>
+        <Box className='aboutContentWrapper'>
+          <Heading>About</Heading>
 
-        <PiPottedPlant className='aboutLogo' />
+          <PiPottedPlant className='aboutLogo' />
 
-        <Text>
-          Welcome to Plantify, Your Green Oasis in the Digital World! Believe in the transformative power of plants, whether you're a seasoned plant parent or just discovering your green thumb. This
-          app is designed to be your ultimate companion on your botanical journey, where the wonders of nature meet cutting-edge technology, creating a seamless and enriching experience for plant
-          enthusiasts of all levels.
-        </Text>
-        <Text>
-          Not just a search engine powered by AI, Plantify serves as your passport to the botanical universe. Explore a vast database of plants from all corners of the globe, each accompanied by
-          interesting facts, care tips, and stunning visuals. Whether on the hunt for a new addition to your indoor jungle or curious about the flora in a distant land, Plantify has you covered.
-        </Text>
-        <Text className='madeBy'> Made by Sandra - 2024</Text>
+          <Text className='aboutText'>
+            I created this full stack web application as my final project during my studies at the Front End Developer program at Medieinstitutet. I wanted to create a user-friendly online tool for
+            plant lovers, making it easy to discover, save and share plant information and care tips.
+          </Text>
+
+          <Text> For those interested in the tech stack: </Text>
+          <Box className={`${isMobile ? 'techStackMobile' : 'techStackDesktop'}`}>
+            <Badge>React</Badge>
+            <Badge>Typescript</Badge>
+            <Badge>Chakra UI</Badge>
+            <Badge>Sass</Badge>
+            <Badge>Open AI</Badge>
+
+            <Badge>Node</Badge>
+            <Badge>Express</Badge>
+            <Badge>MongoDB</Badge>
+          </Box>
+        </Box>
       </VStack>
-    </>
+      <Box className='aboutMe'>
+        <Text className='madeBy'> Made by Sandra - 2024</Text>
+
+        <VStack>
+          <HStack className='socialLinks'>
+            <Link
+              href='https://github.com/zandrastr'
+              isExternal
+            >
+              <FaGithub
+                aria-label='Visit Sandras GitHub profile'
+                tabIndex={0}
+              />
+            </Link>
+
+            <Link
+              href='https://www.linkedin.com/in/sandrawebdev/'
+              isExternal
+            >
+              <FaLinkedin
+                aria-label='Visit Sandras LinkedIn profile'
+                tabIndex={0}
+              />
+            </Link>
+          </HStack>
+        </VStack>
+      </Box>
+    </Box>
   );
 };
 
