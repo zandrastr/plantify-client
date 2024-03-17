@@ -82,7 +82,6 @@ const FavoritesPage = () => {
           buttonText='Confirm Remove'
           isOpen={isConfirmModalOpen}
           onClose={onCloseConfirmModal}
-          onOpen={onOpenConfirmModal}
           mainFunction={confirmRemove}
         />
       )}
